@@ -1,7 +1,10 @@
+import types from '../actions/types'
 
-
-const defaultState = null
-
-export default (state = defaultState, action) => {
-  return state
+export default (state = null, action) => {
+  switch (action.type) {
+    case types.AUTH_STATE_CHANGED:
+      return action.payload || {}
+    default:
+      return state
+  }
 }

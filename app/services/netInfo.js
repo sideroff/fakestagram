@@ -1,16 +1,12 @@
 import { NetInfo } from 'react-native'
 
-import actionTypes from './actionTypes'
+import { changeNetworkStatus } from '../actions'
 
 let _dispatch
-let weHaveInternet = null
+let weHaveInternet = false
 
 function init(dispatch) {
   _dispatch = dispatch
-
-  NetInfo.getConnectionInfo().then(dispatchNetworkChange).catch(error => {
-    dispatchNetworkChange(null)
-  })
 
   NetInfo.addEventListener('connectionChange', dispatchNetworkChange)
 }
@@ -24,7 +20,9 @@ function dispatchNetworkChange(connectionInfo) {
     weHaveInternet = false
   }
 
-  _dispatch({ type: actionTypes.NETWORK_CHANGE, payload: weHaveInternet })
+  console.log('network change', connectionInfo.type, weHaveInternet)
+
+  _dispatch(changeNetworkStatus(weHaveInternet))
 }
 
 export default { init, weHaveInternet }
