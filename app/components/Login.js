@@ -24,7 +24,7 @@ class Login extends Component {
 
     if (!values) return
 
-    this.props.login(values)
+    this.props.dispatch(login(values))
   }
 
   render() {
@@ -39,7 +39,7 @@ class Login extends Component {
           />
         </View>
 
-        <Button title='login' onPress={this.onSubmit}></Button>
+        <Button title='login' onPress={this.onSubmit} />
       </View>
     )
   }

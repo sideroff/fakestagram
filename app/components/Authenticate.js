@@ -9,10 +9,9 @@ export default Navigator = createMaterialBottomTabNavigator(
     Register: Register
   },
   {
-    initialRouteName: 'Register',
+    initialRouteName: 'Login',
     activeTintColor: '#000000',
     inActiveTintColor: '#a7ffeb',
-    initialRouteName: 'Register',
     barStyle: {
       backgroundColor: '#e3f2fd',
       borderTopLeftRadius: 10,

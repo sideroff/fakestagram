@@ -39,7 +39,7 @@ class Register extends Component {
           />
         </View>
 
-        <Button title='register' onPress={this.onSubmit}></Button>
+        <Button title='register' onPress={this.onSubmit} />
       </View>
     )
   }

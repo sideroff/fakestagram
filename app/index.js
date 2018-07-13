@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 import { TopLevel } from './components'
 import store from './store'
-import { authStateChanged } from './actions'
+import { changeCurrentUser } from './actions'
 
 import { firebase, netInfo } from './services'
 
@@ -13,7 +13,7 @@ export default class App extends Component {
     StatusBar.setHidden(true)
 
     netInfo.init(store.dispatch)
-    firebase.init({ onAuthStateChanged: user => store.dispatch(authStateChanged(user)) })
+    firebase.init({ onAuthStateChanged: user => store.dispatch(changeCurrentUser(user)) })
   }
 
   render() {

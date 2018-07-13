@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
 
+
+import { logout } from './../actions'
+
 function mapStateToProps(state) {
-
+  return {}
 }
 
-function mapDispatchToProps(dispatch) {
 
-}
-
-export default class MainApp extends Component {
+class MainApp extends Component {
 
   getCorrectComponent() {
 
@@ -20,9 +20,10 @@ export default class MainApp extends Component {
     return (
       <View >
         <Text>Main App</Text>
+        <Button title='logout' onPress={() => { this.props.dispatch(logout()) }} />
       </View>
     )
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, dispatch => ({ dispatch }))(MainApp)
