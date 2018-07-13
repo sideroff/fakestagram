@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, Button } from 'react-native'
 
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
 
 import Home from './Home'
