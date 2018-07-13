@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Text } from 'react-native'
-
 import {
   MainApp,
   NoInternet,
@@ -10,7 +8,6 @@ import {
   Authenticate
 } from '.'
 
-import { testing } from './../actions'
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
@@ -24,12 +21,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 class TopLevel extends Component {
-
-  componentDidMount() {
-    console.log('component did mount')
-    this.props.dispatch(testing('heyyy'))
-  }
-
   getCorrectComponent() {
     let correctComponent = MainApp
 

@@ -1,20 +1,22 @@
-import React, { Component } from 'react'
-import { View, Text } from 'react-native'
-import { connect } from 'react-redux'
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
-export default class MainApp extends Component {
+import Login from './Login'
+import Register from './Register'
 
-  getCorrectComponent() {
-
+export default Navigator = createMaterialBottomTabNavigator(
+  {
+    Login: Login,
+    Register: Register
+  },
+  {
+    initialRouteName: 'Register',
+    activeTintColor: '#000000',
+    inActiveTintColor: '#a7ffeb',
+    initialRouteName: 'Register',
+    barStyle: {
+      backgroundColor: '#e3f2fd',
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+    },
   }
-
-  render() {
-    return (
-      <View >
-        <Text>Authenticate</Text>
-      </View>
-    )
-  }
-}
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App)
+)
