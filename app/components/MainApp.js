@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, Button } from 'react-native'
-import { connect } from 'react-redux'
+
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 
 
-import { logout } from './../actions'
-
-function mapStateToProps(state) {
-  return {}
-}
-
+import Home from './Home'
+import Account from './Account'
 
 class MainApp extends Component {
 
@@ -26,4 +23,21 @@ class MainApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, dispatch => ({ dispatch }))(MainApp)
+// export default connect(mapStateToProps, dispatch => ({ dispatch }))(MainApp)
+
+export default Navigator = createMaterialBottomTabNavigator(
+  {
+    Home: Home,
+    Account: Account
+  },
+  {
+    initialRouteName: 'Home',
+    activeTintColor: '#000000',
+    inActiveTintColor: '#a7ffeb',
+    barStyle: {
+      backgroundColor: '#e3f2fd',
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+    },
+  }
+)

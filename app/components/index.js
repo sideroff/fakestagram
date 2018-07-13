@@ -6,6 +6,8 @@ import Authenticate from './Authenticate'
 import NoInternet from './NoInternet'
 import Login from './Login'
 import Register from './Register'
+import Home from './Home'
+import Account from './Account'
 
 
 export {
@@ -17,4 +19,6 @@ export {
   NoInternet,
   Login,
   Register,
+  Home,
+  Account
 }
