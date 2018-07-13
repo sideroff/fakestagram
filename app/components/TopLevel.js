@@ -10,16 +10,25 @@ import {
   Authenticate
 } from '.'
 
+import { testing } from './../actions'
+
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
   weHaveInternet: state.flags.weHaveInternet,
 })
 
 function mapDispatchToProps(dispatch) {
-  return {}
+  return {
+    dispatch
+  }
 }
 
 class TopLevel extends Component {
+
+  componentDidMount() {
+    console.log('component did mount')
+    this.props.dispatch(testing('heyyy'))
+  }
 
   getCorrectComponent() {
     let correctComponent = MainApp
