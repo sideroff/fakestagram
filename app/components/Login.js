@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import t from 'tcomb-form-native'
 const Form = t.form.Form
 
+import { Button } from '.'
 import forms from './../forms'
 import { login } from './../actions'
+import types from './../actions/types'
+const authStates = types.authStates
+
 
 function mapStateToProps(state) {
-  return {}
+  return {
+    authState: state.flags.authState,
+    messages: state.messages
+  }
 }
 
 
@@ -39,7 +46,9 @@ class Login extends Component {
           />
         </View>
 
-        <Button title='login' onPress={this.onSubmit} />
+        {this.props.messages.login && <Text>{this.props.messages.login}</Text>}
+
+        <Button label='Login' onPress={this.onSubmit} disabled={this.props.authState === authStates.loggingIn} />
       </View>
     )
   }

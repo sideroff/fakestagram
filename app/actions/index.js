@@ -11,9 +11,10 @@ const updateRegisterMessage = message => ({ type: types.UPDATE_REGISTER_MESSAGE,
 const changeAuthState = state => ({ type: types.CHANGE_AUTH_STATE, payload: state })
 
 const login = values => dispatch => {
-  dispatch(changeAuthState(types.authStates.logginIn))
+  dispatch(changeAuthState(types.authStates.loggingIn))
 
   firebase.auth().signInWithEmailAndPassword(values.email, values.password).catch(error => {
+    dispatch(changeAuthState(types.authStates.loggedOut))
     dispatch(updateLoginMessage(error.message))
   })
 }
@@ -22,6 +23,7 @@ const register = values => dispatch => {
   dispatch(changeAuthState(types.authStates.registering))
 
   firebase.auth().createUserWithEmailAndPassword(values.email, values.password).catch(error => {
+    dispatch(changeAuthState(types.authStates.loggedOut))
     dispatch(updateRegisterMessage(error.message))
   })
 }

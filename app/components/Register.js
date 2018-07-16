@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import t from 'tcomb-form-native'
 const Form = t.form.Form
 
 import forms from './../forms'
 import { register } from './../actions'
+import { Button } from '.'
+import types from './../actions/types'
+const authStates = types.authStates
 
 function mapStateToProps(state) {
-  return {}
+  return {
+    isRegistering: state.flags.isRegistering,
+    messages: state.messages
+  }
 }
 
 class Register extends Component {
@@ -19,7 +25,6 @@ class Register extends Component {
   }
 
   onSubmit() {
-    console.log('reg submit', this.refs)
     let values = this.refs.registerForm.getValue()
 
     if (!values) return;
@@ -39,7 +44,9 @@ class Register extends Component {
           />
         </View>
 
-        <Button title='register' onPress={this.onSubmit} />
+        {this.props.messages.register && <Text>{this.props.messages.register}</Text>}
+
+        <Button label='register' onPress={this.onSubmit} disabled={this.props.authState === authStates.registering} />
       </View>
     )
   }
