@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
 import { Provider } from 'react-redux'
 
-import { TopLevel } from './components'
+import { TopLevel, LoadingOverlay } from './components'
 import store from './store'
 import { changeCurrentUser } from './actions'
 
@@ -21,6 +21,7 @@ export default class App extends Component {
       <Provider store={store} >
         <View style={{ flex: 1 }}>
           <TopLevel />
+          {store.getState().flags.overlayState && <LoadingOverlay state={store.getState().flags.overlayState} />}
         </View>
       </Provider>
     )

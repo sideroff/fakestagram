@@ -37,6 +37,17 @@ const logout = () => dispatch => {
 }
 
 
+const createPost = (posterID, values) => dispatch => {
+  
+  firebase.database().ref(`posts/${posterID}`).push(values).then(response => {
+
+    //dispatch created post since we have to handle ux
+  }).catch(error => {
+    //dispatch post not created since we have to handle ux
+    console.log('error creating post', error)
+  })
+}
+
 
 export {
   changeNetworkStatus,

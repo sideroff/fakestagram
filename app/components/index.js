@@ -5,6 +5,7 @@ import Home from './Home'
 
 import InitialLoadingScreen from './InitialLoadingScreen'
 import Loading from './Loading'
+import LoadingOverlay from './LoadingOverlay'
 import Login from './Login'
 import MainApp from './MainApp'
 import NoInternet from './NoInternet'
@@ -22,6 +23,7 @@ export {
 
   InitialLoadingScreen,
   Loading,
+  LoadingOverlay,
   Login,
   MainApp,
   NoInternet,
