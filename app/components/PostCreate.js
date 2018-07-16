@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
+import { connect } from 'react-redux'
 import t from 'tcomb-form-native'
 const Form = t.form.Form
 
@@ -7,7 +8,10 @@ import { createPost } from './../actions'
 import forms from './../forms'
 import { Button } from '.'
 
-export default class Home extends Component {
+
+function mapStateToProps(state) { return {} }
+
+class Home extends Component {
   constructor(props) {
     super(props)
 
@@ -17,9 +21,8 @@ export default class Home extends Component {
   onSubmit() {
     let values = this.refs.postCreateForm.getValue()
 
-    if (!values) return;
-
-    createPost(values)
+    console.log('here', this)
+    this.props.dispatch(createPost(values))
   }
 
   render() {
@@ -39,3 +42,5 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
 
 })
+
+export default connect(mapStateToProps, dispatch => ({ dispatch }))(Home)

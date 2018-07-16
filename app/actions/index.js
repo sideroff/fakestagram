@@ -36,16 +36,36 @@ const logout = () => dispatch => {
   })
 }
 
+const addOverlay = message => dispatch => {
+  dispatch({ type: types.UPDATE_OVERLAY_MESSAGE, payload: message })
+  dispatch(updateOverlayState(types.overlayStates.loading))
+}
+
+const updateOverlayState = state => dispatch => {
+  if (state === types.overlayStates.success || state === types.overlayStates.failure) {
+    setTimeout(() => {
+      dispatch({ type: types.UPDATE_OVERLAY_STATE, payload: null })
+    }, 2000)
+  }
+  dispatch({ type: types.UPDATE_OVERLAY_STATE, payload: state })
+}
 
 const createPost = (posterID, values) => dispatch => {
-  
-  firebase.database().ref(`posts/${posterID}`).push(values).then(response => {
+  console.log('here2')
+  dispatch(addOverlay('Creating post...'))
 
-    //dispatch created post since we have to handle ux
-  }).catch(error => {
-    //dispatch post not created since we have to handle ux
-    console.log('error creating post', error)
-  })
+  setTimeout(() => {
+    console.log('todo created')
+    dispatch(updateOverlayState(types.overlayStates.success))
+  }, 5000)
+
+  // firebase.database().ref(`posts/${posterID}`).push(values).then(response => {
+
+  //   //dispatch created post since we have to handle ux
+  // }).catch(error => {
+  //   //dispatch post not created since we have to handle ux
+  //   console.log('error creating post', error)
+  // })
 }
 
 
@@ -61,4 +81,5 @@ export {
   login,
   register,
   logout,
+  createPost,
 }

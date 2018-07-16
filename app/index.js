@@ -14,14 +14,17 @@ export default class App extends Component {
 
     netInfo.init(store.dispatch)
     firebase.init({ onAuthStateChanged: user => store.dispatch(changeCurrentUser(user)) })
+
   }
 
   render() {
+
+    console.log('index ', store.getState().flags)
     return (
       <Provider store={store} >
         <View style={{ flex: 1 }}>
           <TopLevel />
-          {store.getState().flags.overlayState && <LoadingOverlay state={store.getState().flags.overlayState} />}
+          <LoadingOverlay />
         </View>
       </Provider>
     )
