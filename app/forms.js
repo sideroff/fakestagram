@@ -30,5 +30,13 @@ export default {
         }
       }
     }
+  },
+  postCreate: {
+    type: t.struct({
+      title: t.String,
+      description: t.String,
+      image: t.String,
+    }),
+    options: {}
   }
 }

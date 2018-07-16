@@ -9,6 +9,7 @@ import Login from './Login'
 import MainApp from './MainApp'
 import NoInternet from './NoInternet'
 import Post from './Post'
+import PostCreate from './PostCreate'
 import Register from './Register'
 import TopLevel from './TopLevel'
 
@@ -25,6 +26,7 @@ export {
   MainApp,
   NoInternet,
   Post,
+  PostCreate,
   Register,
   TopLevel,
 }

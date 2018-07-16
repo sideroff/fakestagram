@@ -6,6 +6,16 @@ export default class Home extends Component {
     super(props)
   }
 
+  componentDidMount() {
+    // firebase.database().ref().child('posts').on('child_added', snapshot => {
+    //   let post = snapshot.val()
+
+    //   if (this.props.currentUser.following.indexOf(post.poster) >= 0) {
+    //     addPost()
+    //   }
+    // })
+  }
+
   render() {
     return (
       <View>
