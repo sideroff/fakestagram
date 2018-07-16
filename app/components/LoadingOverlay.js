@@ -28,14 +28,20 @@ class LoadingOverlay extends Component {
       correctContent = (
         <View>
           <Text style={[styles.text, styles.successTextStyle, this.props.successTextStyle]}>{this.props.text || 'Operation success.'}</Text>
-          <Text style={[styles.mark, styles.checkMarkStyle, this.props.checkMarkStyle]}>✓</Text>
+          <View style={styles.markContainer}>
+            <Text style={[styles.mark, styles.checkMarkStyle, this.props.checkMarkStyle]}>✓</Text>
+          </View>
+
         </View>
       )
     } else if (this.props.state == overlayStates.failure) {
+      
       correctContent = (
         <View>
           <Text style={[styles.text, styles.failureTextStyle, this.props.failureTextStyle]}>{this.props.text || 'Operation failure.'}</Text>
-          <Text style={[styles.mark, styles.crossMarkStyle, this.props.crossMarkStyle]}>✕</Text>
+          <View style={styles.markContainer}>
+            <Text style={[styles.mark, styles.crossMarkStyle, this.props.crossMarkStyle]}>✕</Text>
+          </View>
         </View>
       )
     }
@@ -75,6 +81,18 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  markContainer: {
+    alignItems: 'center'
+  },
+  mark: {
+    fontSize: 100
+  },
+  checkMarkStyle: {
+    color: 'green'
+  },
+  crossMarkStyle: {
+    color: 'green'
   },
   successTextStyle: {},
   checkMarkStyle: {},

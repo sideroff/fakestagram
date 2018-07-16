@@ -43,9 +43,9 @@ const addOverlay = message => dispatch => {
 
 const updateOverlayState = state => dispatch => {
   if (state === types.overlayStates.success || state === types.overlayStates.failure) {
-    setTimeout(() => {
-      dispatch({ type: types.UPDATE_OVERLAY_STATE, payload: null })
-    }, 2000)
+    // setTimeout(() => {
+    //   dispatch({ type: types.UPDATE_OVERLAY_STATE, payload: null })
+    // }, 2000)
   }
   dispatch({ type: types.UPDATE_OVERLAY_STATE, payload: state })
 }
@@ -57,7 +57,7 @@ const createPost = (posterID, values) => dispatch => {
   setTimeout(() => {
     console.log('todo created')
     dispatch(updateOverlayState(types.overlayStates.success))
-  }, 5000)
+  }, 2000)
 
   // firebase.database().ref(`posts/${posterID}`).push(values).then(response => {
 
