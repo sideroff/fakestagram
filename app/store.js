@@ -20,4 +20,5 @@ function getInstance() {
   return _instance
 }
 
+
 export default getInstance()
