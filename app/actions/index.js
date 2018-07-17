@@ -1,6 +1,7 @@
-import types from './types'
-
 import firebase from 'firebase'
+
+import types from './types'
+import { navigation } from './../services'
 
 const changeNetworkStatus = newValue => ({ type: types.CHANGE_NETWORK_STATUS, payload: newValue })
 const changeCurrentUser = user => ({ type: types.CHANGE_CURRENT_USER, payload: user })
@@ -54,6 +55,7 @@ const createPost = (post) => dispatch => {
   firebase.database().ref(`posts/${post.uid}`).push(post).then(response => {
     console.log('post created')
     dispatch(updateOverlayState(null))
+    navigation.navigate('main', 'Home')
   }).catch(error => {
     console.log('error creating post', error)
     dispatch(updateOverlayState(null))
