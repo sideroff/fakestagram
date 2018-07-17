@@ -1,9 +1,13 @@
+import React, { Component } from 'react'
+
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
 import Login from './Login'
 import Register from './Register'
 
-export default Navigator = createMaterialBottomTabNavigator(
+import { navigation } from './../services'
+
+const Router = createMaterialBottomTabNavigator(
   {
     Login: Login,
     Register: Register
@@ -19,3 +23,12 @@ export default Navigator = createMaterialBottomTabNavigator(
     },
   }
 )
+
+
+export default class Authenticate extends Component {
+  render() {
+    return (
+      <Router ref={navigationRef => navigation.setUp('auth', navigationRef)} />
+    )
+  }
+}

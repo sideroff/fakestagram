@@ -1,10 +1,13 @@
+import React, { Component } from 'react'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
 import Home from './Home'
 import PostCreate from './PostCreate'
 import Account from './Account'
 
-export default Navigator = createMaterialBottomTabNavigator(
+import { navigation } from './../services'
+
+const Router = createMaterialBottomTabNavigator(
   {
     Home: Home,
     Post: PostCreate,
@@ -21,3 +24,11 @@ export default Navigator = createMaterialBottomTabNavigator(
     },
   }
 )
+
+export default class MainApp extends Component {
+  render() {
+    return (
+      <Router ref={navigationRef => navigation.setUp('main', navigationRef)} />
+    )
+  }
+}
