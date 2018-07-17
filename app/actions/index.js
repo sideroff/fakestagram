@@ -1,7 +1,9 @@
 import firebase from 'firebase'
+import { PermissionsAndroid, CameraRoll } from 'react-native'
 
 import types from './types'
 import { navigation } from './../services'
+import store from './../store'
 
 const changeNetworkStatus = newValue => ({ type: types.CHANGE_NETWORK_STATUS, payload: newValue })
 const changeCurrentUser = user => ({ type: types.CHANGE_CURRENT_USER, payload: user })
@@ -62,6 +64,43 @@ const createPost = (post) => dispatch => {
   })
 }
 
+const getReadExternalStoragePermission = () => {
+  return new Promise((resolve, reject) => {
+    PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      {
+        title: 'We need your permission',
+        message: 'We need to access your phone\'s storage'
+      }
+    ).then(granted => {
+      resolve()
+    }).catch(error => {
+      reject(error)
+    })
+  })
+
+}
+
+const getPhotos = ({ first, assetType }) => dispatch => {
+
+  let promise = Promise.resolve()
+
+  if (!store.getState().flags.readExternalStoragePermission) {
+    promise = getReadExternalStoragePermission()
+  }
+
+  promise.then(() => {
+    dispatch({ type: types.UPDATE_READ_EXTERNAL_STORAGE_PERMISSION, payload: true })
+
+    CameraRoll.getPhotos({ first, assetType }).then(r => {
+      dispatch({ type: types.UPDATE_PHOTOS, payload: r.edges })
+    }).catch(error => {
+      console.log('error getting images', error)
+    })
+  }).catch(error => {
+    dispatch({ type: types.UPDATE_READ_EXTERNAL_STORAGE_PERMISSION, payload: false })
+  })
+}
 
 export {
   changeNetworkStatus,
@@ -76,4 +115,5 @@ export {
   register,
   logout,
   createPost,
+  getPhotos,
 }

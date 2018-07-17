@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StatusBar, View } from 'react-native'
+import { StatusBar, View, Text } from 'react-native'
 import { Provider } from 'react-redux'
 
 import { TopLevel, LoadingOverlay } from './components'
@@ -18,8 +18,6 @@ export default class App extends Component {
   }
 
   render() {
-
-    console.log('index ', store.getState().flags)
     return (
       <Provider store={store} >
         <View style={{ flex: 1 }}>
