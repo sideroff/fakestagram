@@ -9,7 +9,11 @@ import forms from './../forms'
 import { Button } from '.'
 
 
-function mapStateToProps(state) { return {} }
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser
+  }
+}
 
 class Home extends Component {
   constructor(props) {
@@ -21,8 +25,11 @@ class Home extends Component {
   onSubmit() {
     let values = this.refs.postCreateForm.getValue()
 
-    console.log('here', this)
-    this.props.dispatch(createPost(values))
+    let newPost = Object.assign({}, values, { uid: this.props.currentUser.uid })
+
+    console.log('newPost', newPost)
+
+    this.props.dispatch(createPost(newPost))
   }
 
   render() {

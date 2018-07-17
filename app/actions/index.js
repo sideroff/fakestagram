@@ -42,30 +42,22 @@ const addOverlay = message => dispatch => {
 }
 
 const updateOverlayState = state => dispatch => {
-  if (state === types.overlayStates.success || state === types.overlayStates.failure) {
-    // setTimeout(() => {
-    //   dispatch({ type: types.UPDATE_OVERLAY_STATE, payload: null })
-    // }, 2000)
-  }
   dispatch({ type: types.UPDATE_OVERLAY_STATE, payload: state })
 }
 
-const createPost = (posterID, values) => dispatch => {
-  console.log('here2')
+const createPost = (post) => dispatch => {
+
   dispatch(addOverlay('Creating post...'))
 
-  setTimeout(() => {
-    console.log('todo created')
-    dispatch(updateOverlayState(types.overlayStates.success))
-  }, 2000)
+  console.log(post)
 
-  // firebase.database().ref(`posts/${posterID}`).push(values).then(response => {
-
-  //   //dispatch created post since we have to handle ux
-  // }).catch(error => {
-  //   //dispatch post not created since we have to handle ux
-  //   console.log('error creating post', error)
-  // })
+  firebase.database().ref(`posts/${post.uid}`).push(post).then(response => {
+    console.log('post created')
+    dispatch(updateOverlayState(null))
+  }).catch(error => {
+    console.log('error creating post', error)
+    dispatch(updateOverlayState(null))
+  })
 }
 
 
