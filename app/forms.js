@@ -33,10 +33,15 @@ export default {
   },
   postCreate: {
     type: t.struct({
-      title: t.String,
-      description: t.String,
-      image: t.String,
+      description: t.maybe(t.String)
     }),
-    options: {}
+    options: {
+      fields: {
+        description: {
+          label: ''
+        }
+      },
+      auto: 'placeholders'
+    }
   }
 }

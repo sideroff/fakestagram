@@ -1,6 +1,7 @@
 import Account from './Account'
 import Authenticate from './Authenticate'
 import Button from './Button'
+import ChoosePhoto from './ChoosePhoto'
 import Home from './Home'
 
 import InitialLoadingScreen from './InitialLoadingScreen'
@@ -19,6 +20,7 @@ export {
   Account,
   Authenticate,
   Button,
+  ChoosePhoto,
   Home,
 
   InitialLoadingScreen,

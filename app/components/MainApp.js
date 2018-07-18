@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
 import Home from './Home'
-import PostCreate from './PostCreate'
+import ChoosePhoto from './ChoosePhoto'
 import Account from './Account'
 
 import { navigation } from './../services'
@@ -10,11 +10,11 @@ import { navigation } from './../services'
 const Router = createMaterialBottomTabNavigator(
   {
     Home: Home,
-    Post: PostCreate,
+    Post: ChoosePhoto,
     Account: Account
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Post',
     activeTintColor: '#000000',
     inActiveTintColor: '#a7ffeb',
     barStyle: {

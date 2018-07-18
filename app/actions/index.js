@@ -3,7 +3,6 @@ import { PermissionsAndroid, CameraRoll } from 'react-native'
 
 import types from './types'
 import { navigation } from './../services'
-import store from './../store'
 
 const changeNetworkStatus = newValue => ({ type: types.CHANGE_NETWORK_STATUS, payload: newValue })
 const changeCurrentUser = user => ({ type: types.CHANGE_CURRENT_USER, payload: user })
@@ -65,42 +64,39 @@ const createPost = (post) => dispatch => {
 }
 
 const getReadExternalStoragePermission = () => {
-  return new Promise((resolve, reject) => {
-    PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-      {
-        title: 'We need your permission',
-        message: 'We need to access your phone\'s storage'
-      }
-    ).then(granted => {
-      resolve()
-    }).catch(error => {
-      reject(error)
-    })
-  })
-
+  return PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    {
+      title: 'We need your permission',
+      message: 'We need to access your phone\'s storage'
+    }
+  )
 }
 
-const getPhotos = ({ first, assetType }) => dispatch => {
+const updateReadExternalStoragePermission = flag => {
+  return { type: types.UPDATE_READ_EXTERNAL_STORAGE_PERMISSION, payload: flag }
+}
 
-  let promise = Promise.resolve()
+const updateFetchingPhotosFlag = flag => {
+  return { type: types.UPDATE_FETCHING_PHOTOS_FLAG, payload: flag }
+}
 
-  if (!store.getState().flags.readExternalStoragePermission) {
-    promise = getReadExternalStoragePermission()
-  }
-
-  promise.then(() => {
-    dispatch({ type: types.UPDATE_READ_EXTERNAL_STORAGE_PERMISSION, payload: true })
-
-    CameraRoll.getPhotos({ first, assetType }).then(r => {
-      dispatch({ type: types.UPDATE_PHOTOS, payload: r.edges })
-    }).catch(error => {
-      console.log('error getting images', error)
-    })
+const getPhotos = ({ first, after, assetType }) => dispatch => {
+  dispatch(updateFetchingPhotosFlag(true))
+  CameraRoll.getPhotos({ first, after, assetType }).then(r => {
+    dispatch(updateFetchingPhotosFlag(false))
+    dispatch({ type: types.UPDATE_PHOTOS, payload: r.edges })
+    dispatch({ type: types.UPDATE_LAST_LOADED_PHOTO_CURSOR, payload: r.page_info.end_cursor })
   }).catch(error => {
-    dispatch({ type: types.UPDATE_READ_EXTERNAL_STORAGE_PERMISSION, payload: false })
+    dispatch(updateFetchingPhotosFlag(false))
+    console.log('error getting images', error)
   })
 }
+
+const selectPhoto = photo => {
+  return { type: types.UPDATE_SELECTED_PHOTO, payload: photo }
+}
+
 
 export {
   changeNetworkStatus,
@@ -110,10 +106,13 @@ export {
   updateRegisterMessage,
 
   changeAuthState,
+  getReadExternalStoragePermission,
+  updateReadExternalStoragePermission,
 
   login,
   register,
   logout,
   createPost,
   getPhotos,
+  selectPhoto,
 }
