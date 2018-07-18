@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, CameraRoll, ScrollView, FlatList, Image, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, CameraRoll, ScrollView, FlatList, Image, Dimensions, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import t from 'tcomb-form-native'
 const Form = t.form.Form
 
-import { createPost, getReadExternalStoragePermission, updateReadExternalStoragePermission, getPhotos } from './../actions'
+import { createPost, getReadExternalStoragePermission, updateReadExternalStoragePermission, getPhotos, selectPhoto } from './../actions'
 import forms from './../forms'
 import { Button } from '.'
 
@@ -14,6 +14,7 @@ function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
     photos: state.resources.photos,
+    selectedPhoto: state.resources.selectedPhoto,
     readExternalStoragePermission: state.flags.readExternalStoragePermission,
     lastLoadedPhotoCursor: state.flags.lastLoadedPhotoCursor,
     numberOfPhotosToLoad: state.flags.numberOfPhotosToLoad,
@@ -28,6 +29,7 @@ class ChoosePhoto extends Component {
 
     this.getPermission = this.getPermission.bind(this)
     this.getNextPhotos = this.getNextPhotos.bind(this)
+    this.selectPhoto = this.selectPhoto.bind(this)
   }
 
   getNextPhotos() {
@@ -44,6 +46,10 @@ class ChoosePhoto extends Component {
     })
   }
 
+  selectPhoto(photo) {
+    this.props.dispatch(selectPhoto(photo))
+  }
+
   componentDidMount() {
     console.log('here')
     this.getPermission()
@@ -52,9 +58,9 @@ class ChoosePhoto extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.selectedPhoto}>
+        <View style={styles.selectedPhotoContainer}>
           {this.props.selectedPhoto
-            ? <Image source={{ uri: this.props.selectedPhoto.node.image.uri }} />
+            ? <Image style={styles.selectedPhoto} source={{ uri: this.props.selectedPhoto.node.image.uri }} />
             : <View style={styles.centered}>
               {this.props.readExternalStoragePermission
                 ? <Text style={styles.bigText}>Select a photo...</Text>
@@ -71,13 +77,16 @@ class ChoosePhoto extends Component {
             data={this.props.photos}
             keyExtractor={(item) => { return item.node.image.uri }}
             numColumns={this.props.numberOfPhotosOnRow}
-            renderItem={({ item }) => <Image
-              style={{
-                width: Dimensions.get('window').width / this.props.numberOfPhotosOnRow,
-                height: Dimensions.get('window').width / this.props.numberOfPhotosOnRow,
-              }}
-              source={{ uri: item.node.image.uri }}
-            />}
+            renderItem={({ item }) =>
+              <TouchableOpacity onPress={() => { this.selectPhoto(item) }}>
+                <Image
+                  source={{ uri: item.node.image.uri }}
+                  style={{
+                    width: Dimensions.get('window').width / this.props.numberOfPhotosOnRow,
+                    height: Dimensions.get('window').width / this.props.numberOfPhotosOnRow,
+                  }}
+                />
+              </TouchableOpacity>}
             onEndReachedThreshold={0}
             onEndReached={this.getNextPhotos}
           />
@@ -92,10 +101,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'red'
   },
-  selectedPhoto: {
+  selectedPhotoContainer: {
     flex: 2.5,
-    backgroundColor: 'green'
 
+  },
+  selectedPhoto: {
+    flex: 1,
+    width: undefined,
+    height: undefined
   },
   photos: {
     flex: 1.5,
