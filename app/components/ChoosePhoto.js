@@ -60,7 +60,7 @@ class ChoosePhoto extends Component {
       <View style={styles.container}>
         <View style={styles.selectedPhotoContainer}>
           {this.props.selectedPhoto
-            ? <Image style={styles.selectedPhoto} source={{ uri: this.props.selectedPhoto.node.image.uri }} />
+            ? <Image resizeMode='contain' style={styles.selectedPhoto} source={{ uri: this.props.selectedPhoto.node.image.uri }} />
             : <View style={styles.centered}>
               {this.props.readExternalStoragePermission
                 ? <Text style={styles.bigText}>Select a photo...</Text>
@@ -99,10 +99,10 @@ class ChoosePhoto extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red'
   },
   selectedPhotoContainer: {
     flex: 2.5,
+    borderBottomWidth: 2,
 
   },
   selectedPhoto: {
