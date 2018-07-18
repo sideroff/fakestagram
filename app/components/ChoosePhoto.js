@@ -24,6 +24,11 @@ function mapStateToProps(state) {
 }
 
 class ChoosePhoto extends Component {
+
+  static navigationOptions = {
+    title: 'Choose a photo'
+  }
+
   constructor(props) {
     super(props)
 
@@ -33,6 +38,7 @@ class ChoosePhoto extends Component {
   }
 
   getNextPhotos() {
+    console.log('getNextPhotos', this.props.fetchingPhotos)
     if (this.props.fetchingPhotos) return;
     this.props.dispatch(getPhotos({ first: this.props.numberOfPhotosToLoad, after: this.props.lastLoadedPhotoCursor }))
   }
@@ -55,9 +61,16 @@ class ChoosePhoto extends Component {
     this.getPermission()
   }
 
+  testing() {
+    console.log('here boi')
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <View>
+
+        </View>
         <View style={styles.selectedPhotoContainer}>
           {this.props.selectedPhoto
             ? <Image resizeMode='contain' style={styles.selectedPhoto} source={{ uri: this.props.selectedPhoto.node.image.uri }} />
@@ -78,7 +91,7 @@ class ChoosePhoto extends Component {
             keyExtractor={(item) => { return item.node.image.uri }}
             numColumns={this.props.numberOfPhotosOnRow}
             renderItem={({ item }) =>
-              <TouchableOpacity onPress={() => { this.selectPhoto(item) }}>
+              <TouchableOpacity onPress={() => this.selectPhoto(item)}>
                 <Image
                   source={{ uri: item.node.image.uri }}
                   style={{
@@ -87,7 +100,7 @@ class ChoosePhoto extends Component {
                   }}
                 />
               </TouchableOpacity>}
-            onEndReachedThreshold={0}
+            onEndReachedThreshold={1}
             onEndReached={this.getNextPhotos}
           />
         </View>

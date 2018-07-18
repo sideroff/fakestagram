@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
 import Home from './Home'
-import ChoosePhoto from './ChoosePhoto'
+import PostCreate from './PostCreate'
 import Account from './Account'
 
 import { navigation } from './../services'
@@ -10,7 +10,7 @@ import { navigation } from './../services'
 const Router = createMaterialBottomTabNavigator(
   {
     Home: Home,
-    Post: ChoosePhoto,
+    Post: PostCreate,
     Account: Account
   },
   {
