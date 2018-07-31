@@ -22,7 +22,7 @@ export default class App extends Component {
       <Provider store={store} >
         <View style={{ flex: 1 }}>
           <TopLevel />
-          <LoadingOverlay />
+          {/* <LoadingOverlay /> */}
         </View>
       </Provider>
     )
